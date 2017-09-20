@@ -1,7 +1,29 @@
-<ul *ngFor="let hero of heroArray" id="hero-list">
-  <li>
+<!-- 
+  this is the selector that includes the child component and where
+  we catch any events that are emitted from the child or pass any
+  inputs down to the childe from the parent
+ -->
+<app-search (searchValue)="searchHero($event)"></app-search>
+
+
+<ul id="hero-list">
+  <li *ngFor="let hero of heroArray">
     {{hero.name}}
+    <br>
     <img src="{{hero.thumbnail.path}}.{{hero.thumbnail.extension}}">
   </li>
 </ul>
+
+<!-- bootstrap stuffs for grid layout. Bring in bootstrap for this to work
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-6 col-md-3" *ngFor="let hero of heroArray">
+      <img src="{{hero.thumbnail.path}}.{{hero.thumbnail.extension}}" alt="...">
+      <br>
+      {{hero.name}}
+    </div>
+  </div>
+</div>
+-->
+
 

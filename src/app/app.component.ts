@@ -10,6 +10,9 @@ import { GetMarvelHerosService } from './get-marvel-heros.service';
 export class AppComponent {
   heroArray;
 
+  //this is instantiating the GetMarvelHerosService and putting
+  //in a property called marvelLibrary
+  //now we can use marvelLibrary to run methods on the service
   constructor(private marvelLibrary: GetMarvelHerosService){}
 
   getHeros(){
@@ -19,25 +22,20 @@ export class AppComponent {
         this.heroArray = res.data.results;
       })
   }
+
   ngOnInit(){
     this.getHeros()
   }
+
+  //this method is here to respond to the event emitted from the child
+  //component on a search. This is being called from line 1 of app.component.html
+  //in response to the searchValue event being emitted from the child
+  searchHero(searchValue){
+    this.marvelLibrary.getHeroInfo(searchValue)
+    .subscribe(res => {
+      console.log(res.data.results)
+      this.heroArray = res.data.results;
+    })
+    //I don't know what I'm doing here logically...I want to pass in the search value to append to the URL and return the hero
+  }
 }
-// export class AppComponent implements OnInit{
-//   answer: string;
-//   questionInfo;
-//   score: number = 0;
-  
-//     constructor(private jeopardyService: JeopardyService){}
-  
-//     getDataFromService(){
-//       this.jeopardyService.getQuestionInfo()
-//         .subscribe(
-//           questionInfo => {
-//             this.questionInfo = questionInfo[0];
-//           }
-//         )
-//     }
-//     ngOnInit(){
-//       this.getDataFromService()
-//     }
